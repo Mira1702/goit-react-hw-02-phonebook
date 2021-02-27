@@ -1,29 +1,68 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
+import './PhoneBook.css';
 
 class PhoneBook extends Component {
     state = {        
         contacts: [],
-        name: ''
+        name: '',
+        number: ''
     }
 
-    handleNameChange = event => {
-        // console.log(event.currentTarget.value)
+    nameInputId = shortid.generate();
+    numberInputId = shortid.generate();
 
-        this.setState({inputValue: event.currentTarget.value})
+    // handleNameChange = event => {     
+    //     this.setState({name: event.currentTarget.value})
+    // }
+    // handleNumberChange = event => {     
+    //     this.setState({number: event.currentTarget.value})
+    // }
+
+    handleChange = event => {
+        const { name, value } = event.currentTarget;
+        this.setState({
+            [name]:value
+        })
+    }
+    
+    handleSubmit = e => {
+        e.preventDefault();
+
+        this.props.onSubmit(this.state);
+        this.reset();
+    }
+    reset = () => {
+        this.setState({
+            name: '',
+            number: ''
+        });
     }
 
+    
     render() {
-        return (
-            <form>
-                <label>Name
-                    <input
+        return (            
+                <form onSubmit={this.handleSubmit} className="form">
+                   <label className="label" htmlFor={this.nameInputId}>Name
+                       <input
                         type="text"
+                        name="name"
                         value={this.state.name}
-                        onChange={this.handleNameChange}
-                    ></input>
-                </label>
-            </form>
-            
+                        onChange={this.handleChange} 
+                        id={this.nameInputId}
+                       ></input>
+                   </label>
+                   <label className="label" htmlFor={this.numberInputId}>Number   
+                       <input
+                        type="tel"
+                        name="number"
+                        value={this.state.number}
+                        onChange={this.handleChange}
+                        id={this.numberInputId}
+                       ></input>
+                    </label>
+                    <button type="submit" className="button">Add contact</button>
+                </form>            
         )
     }
 }
