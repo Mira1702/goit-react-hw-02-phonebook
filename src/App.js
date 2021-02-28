@@ -25,9 +25,18 @@ class App extends Component {
       number
     };
 
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts]
-    }))
+    const inContacts = this.state.contacts.find(
+            item => item.name === contact.name,
+        );
+        if (inContacts !== undefined) {
+            alert(`${contact.name} is already in contacts`);        
+        return;
+        } 
+       this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    })); 
+
+    
   }
 
   handleRemoveContact = (id) => 
@@ -48,28 +57,29 @@ class App extends Component {
     });
   };
 
-  getUniqueName = contact => {
-        const inContacts = this.state.contacts.find(
-            item => item.name === contact.name
-        );
-        if (inContacts !== undefined) {
-            alert('${contact.name} is already in contacts');        
-        return;
-        } 
-       this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-      })); 
-    }
+  // getUniqueName = contact => {
+  //       const inContacts = this.state.contacts.find(
+  //           item => item.name === contact.name,
+  //       );
+  //       if (inContacts !== undefined) {
+  //           alert(`${contact.name} is already in contacts`);        
+  //       return;
+  //       } 
+  //      this.setState(({ contacts }) => ({
+  //     contacts: [contact, ...contacts],
+  //     })); 
+  //   }
 
   
   
   render() {    
     const { filter } = this.state;
-    const filteredContacts = this.getfilteredContacts();    
+    const filteredContacts = this.getfilteredContacts();
+    
     return (
       <div>
         <Title title='Phonebook'/>
-        <PhoneBook onSubmit={this.formSubmitHandler} uniqueName={this.uniqueName} />
+        <PhoneBook onSubmit={this.formSubmitHandler} />
         <Title title='Contacts' />
         <Filter
           value={filter}
