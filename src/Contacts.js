@@ -1,7 +1,6 @@
 import React from 'react';
 
-const ContactItem = ({ name, number, id, onRemove }) => {
-  
+const ContactItem = ({ name, number, id, onRemove }) => {  
   return (
     <li >
       <span>{name}</span>: <span>{number}</span>
@@ -32,7 +31,4 @@ const Contacts = ({ filteredContacts, onRemove }) => {
   );
 };
 
-
 export default Contacts;
-
-

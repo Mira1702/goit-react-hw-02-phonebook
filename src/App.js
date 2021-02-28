@@ -47,14 +47,29 @@ class App extends Component {
       return contact.name.toLowerCase().includes(normalizedFilter);
     });
   };
+
+  getUniqueName = contact => {
+        const inContacts = this.state.contacts.find(
+            item => item.name === contact.name
+        );
+        if (inContacts !== undefined) {
+            alert('${contact.name} is already in contacts');        
+        return;
+        } 
+       this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+      })); 
+    }
+
+  
   
   render() {    
     const { filter } = this.state;
-    const filteredContacts = this.getfilteredContacts();
+    const filteredContacts = this.getfilteredContacts();    
     return (
       <div>
         <Title title='Phonebook'/>
-        <PhoneBook onSubmit={this.formSubmitHandler} />
+        <PhoneBook onSubmit={this.formSubmitHandler} uniqueName={this.uniqueName} />
         <Title title='Contacts' />
         <Filter
           value={filter}
@@ -62,7 +77,7 @@ class App extends Component {
         />
         <Contacts
           filteredContacts={filteredContacts}
-          onRemove={this.handleRemoveContact}
+          onRemove={this.handleRemoveContact}          
         />        
       </div>      
     )

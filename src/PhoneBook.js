@@ -12,13 +12,6 @@ class PhoneBook extends Component {
     nameInputId = shortid.generate();
     numberInputId = shortid.generate();
 
-    // handleNameChange = event => {     
-    //     this.setState({name: event.currentTarget.value})
-    // }
-    // handleNumberChange = event => {     
-    //     this.setState({number: event.currentTarget.value})
-    // }
-
     handleChange = event => {
         const { name, value } = event.currentTarget;
         this.setState({
@@ -39,10 +32,12 @@ class PhoneBook extends Component {
         });
     }
 
+    
+
         
-    render() {
+    render() {        
         return (            
-                <form onSubmit={this.handleSubmit} className="form">
+                <form onSubmit={this.handleSubmit}  className="form">
                    <label className="label" htmlFor={this.nameInputId}>Name
                        <input
                         type="text"
@@ -61,7 +56,10 @@ class PhoneBook extends Component {
                         id={this.numberInputId}
                        ></input>
                     </label>
-                    <button type="submit" className="button">Add contact</button>
+                    <button 
+                        type="submit"
+                        className="button"                        
+                    >Add contact</button>
                 </form>            
         )
     }
