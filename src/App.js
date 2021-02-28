@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import Title from './Title';
 import PhoneBook from './PhoneBook';
 import Contacts from './Contacts';
@@ -8,14 +9,25 @@ class App extends Component {
     contacts: []
   }
 
-  formSubmitHandler = data => {
-    console.log(data);
+  formSubmitHandler = ({name, number}) => {
+    // console.log(data);
+
+    const contact = {
+      id: shortid.generate(),
+      name,
+      number
+    };
+
+    this.setState(prevState => ({
+      contacts: [contact, ...prevState.contacts]
+    }))
   }
 
   handleRemoveContact = (id) => 
   this.setState(({ contacts }) => ({ contacts: contacts.filter(contact => contact.id !== id) }))
 
-
+  
+  
   render() {
     const { contacts } = this.state
     return (
